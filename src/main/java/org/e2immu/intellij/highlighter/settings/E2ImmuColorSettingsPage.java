@@ -55,9 +55,10 @@ public class E2ImmuColorSettingsPage implements com.intellij.openapi.options.col
 
     @NotNull
     @Override
-    public AttributesDescriptor[] getAttributeDescriptors() {
+    public AttributesDescriptor @NotNull [] getAttributeDescriptors() {
         final String SETTINGS = "e2i.settings.colors.attr.";
         return new AttributesDescriptor[]{
+                new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ERROR_TYPE), TAK_ERROR_TYPE),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_E2CONTAINER_TYPE), TAK_E2CONTAINER_TYPE),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_E2IMMUTABLE_TYPE), TAK_E2IMMUTABLE_TYPE),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_E1CONTAINER_TYPE), TAK_E1CONTAINER_TYPE),
@@ -66,17 +67,20 @@ public class E2ImmuColorSettingsPage implements com.intellij.openapi.options.col
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_MUTABLE_MODIFIES_ARGUMENTS_TYPE), TAK_MUTABLE_MODIFIES_ARGUMENTS_TYPE),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + NOT_ANNOTATED_TYPE), TAK_NOT_ANNOTATED_TYPE),
 
+                new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ERROR_METHOD), TAK_ERROR_METHOD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_INDEPENDENT_METHOD), TAK_INDEPENDENT_METHOD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_DEPENDENT_METHOD), TAK_DEPENDENT_METHOD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_NOT_MODIFIED_METHOD), TAK_NOT_MODIFIED_METHOD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_MODIFIED_METHOD), TAK_MODIFIED_METHOD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + NOT_ANNOTATED_METHOD), TAK_NOT_ANNOTATED_METHOD),
 
+                new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ERROR_FIELD), TAK_ERROR_FIELD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_NOT_MODIFIED_FIELD), TAK_NOT_MODIFIED_FIELD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_MODIFIED_FIELD), TAK_MODIFIED_FIELD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_VARIABLE_FIELD), TAK_VARIABLE_FIELD),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + NOT_ANNOTATED_FIELD), TAK_NOT_ANNOTATED_FIELD),
 
+                new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ERROR_PARAMETER), TAK_ERROR_PARAM),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_NOT_MODIFIED_PARAM), TAK_NOT_MODIFIED_PARAM),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + ANNOTATION_MODIFIED_PARAM), TAK_MODIFIED_PARAM),
                 new AttributesDescriptor(Bundle.INSTANCE.get(SETTINGS + NOT_ANNOTATED_PARAM), TAK_NOT_ANNOTATED_PARAM),
@@ -85,7 +89,7 @@ public class E2ImmuColorSettingsPage implements com.intellij.openapi.options.col
 
     @NotNull
     @Override
-    public ColorDescriptor[] getColorDescriptors() {
+    public ColorDescriptor @NotNull [] getColorDescriptors() {
         return ColorDescriptor.EMPTY_ARRAY;
     }
 

@@ -18,14 +18,11 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
-import org.e2immu.annotation.Container;
-import org.e2immu.annotation.Singleton;
 import org.e2immu.intellij.highlighter.Application;
 import org.e2immu.intellij.highlighter.Constants;
 import org.jetbrains.annotations.NotNull;
 
-@Singleton
-@Container
+
 @State(name = "Java", storages = {@Storage(Constants.STORAGE_FILE)})
 public class JavaConfig implements PersistentStateComponent<ConfigData> {
 

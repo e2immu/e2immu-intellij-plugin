@@ -15,7 +15,6 @@
 package org.e2immu.intellij.highlighter.java;
 
 import com.google.common.collect.ImmutableList;
-import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;

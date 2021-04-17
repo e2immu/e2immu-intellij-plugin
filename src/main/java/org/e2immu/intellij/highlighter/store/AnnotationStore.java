@@ -15,7 +15,6 @@
 package org.e2immu.intellij.highlighter.store;
 
 import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -31,7 +30,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.e2immu.annotation.Singleton;
 import org.e2immu.intellij.highlighter.Constants;
 import org.e2immu.intellij.highlighter.ElementName;
-import org.e2immu.intellij.highlighter.ElementType;
 import org.e2immu.intellij.highlighter.java.ConfigData;
 import org.e2immu.intellij.highlighter.java.JavaConfig;
 
@@ -41,10 +39,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Singleton
@@ -56,8 +51,8 @@ public class AnnotationStore {
     private final LRUCache<String, String> cache = new LRUCache<>(500, 1000L * 60 * 30);
 
     /**
-     * @param elementNames FQNs of the element their element type, according to the rules in the manual.
-     * @param uponResult   The annotation name in lower case + context (e2immutable_f)
+     * @param elementNames FQNs of the element, including  its element type. See ElementName.
+     * @param uponResult   The annotation name in lower case + context (e2immutable-t, notmodified-f)
      */
     public void mapAndMark(List<ElementName> elementNames, Consumer<String> uponResult) {
         for (ElementName elementName : elementNames) {
@@ -143,6 +138,7 @@ public class AnnotationStore {
 
     /**
      * The system at the moment only expects one annotation per identifier
+     * We prioritize.
      *
      * @param nextString a CSV of annotations in LC
      * @return a single annotation name
@@ -150,9 +146,44 @@ public class AnnotationStore {
     static String select(String nextString) {
         int comma = nextString.indexOf(',');
         if (comma > 0) {
-            return nextString.substring(0, comma);
+            return highestPriority(nextString.split(","));
         }
         return nextString;
+    }
+
+    private static final Map<String, Integer> PRIORITY = new HashMap<>();
+
+    static {
+        PRIORITY.put("error", 0);
+
+        PRIORITY.put("beforemark", 1);
+
+        PRIORITY.put("e2container", 2);
+        PRIORITY.put("e2immutable", 2);
+
+        PRIORITY.put("e1container", 3);
+        PRIORITY.put("e1immutable", 3);
+
+        PRIORITY.put("container", 4);
+        PRIORITY.put("mutablemodifiesparameters", 4);
+
+        PRIORITY.put("dependent", 5);
+        PRIORITY.put("independent", 5);
+        PRIORITY.put("modified", 6);
+        PRIORITY.put("notmodified", 6);
+
+        PRIORITY.put("final", 7);
+        PRIORITY.put("variable", 7);
+    }
+
+    private static int priority(String in) {
+        return PRIORITY.getOrDefault(in.substring(0, in.indexOf('-')), 10);
+    }
+
+    private static String highestPriority(String[] annotations) {
+        List<String> toSort = new ArrayList<>(Arrays.asList(annotations));
+        toSort.sort(Comparator.comparing(AnnotationStore::priority));
+        return toSort.get(0);
     }
 
     /**

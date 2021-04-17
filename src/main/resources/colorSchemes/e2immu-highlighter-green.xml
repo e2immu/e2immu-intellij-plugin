@@ -21,6 +21,11 @@
 
     <!-- TYPES -->
 
+    <option name="e2i-error-t">
+        <value>
+            <option name="FOREGROUND" value="ff0000"/>
+        </value>
+    </option>
     <option name="e2i-e2container-t">
         <value>
             <option name="FOREGROUND" value="546d1b"/>
@@ -64,6 +69,11 @@
 
     <!-- METHODS -->
 
+    <option name="e2i-error-m">
+        <value>
+            <option name="FOREGROUND" value="ff0000"/>
+        </value>
+    </option>
     <option name="e2i-independent-m">
         <value>
             <option name="FOREGROUND" value="546d1b"/>
@@ -86,6 +96,11 @@
 
     <!-- FIELDS -->
 
+    <option name="e2i-error-f">
+        <value>
+            <option name="FOREGROUND" value="ff0000"/>
+        </value>
+    </option>
     <option name="e2i-notmodified-f">
         <value>
             <option name="FOREGROUND" value="546d1b"/>
@@ -108,6 +123,11 @@
 
     <!-- PARAMETERS -->
 
+    <option name="e2i-error-p">
+        <value>
+            <option name="FOREGROUND" value="ff0000"/>
+        </value>
+    </option>
     <option name="e2i-notmodified-p">
         <value>
             <option name="FOREGROUND" value="546d1b"/>

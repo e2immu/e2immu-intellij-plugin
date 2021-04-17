@@ -34,7 +34,10 @@ public interface Constants {
     String E2I = "e2i-";
     String NOT_ANNOTATED = "";
 
+    String ERROR = "error";
+
     // TYPE (from most important to least important)
+    String ERROR_TYPE = ERROR + TYPE;
     String ANNOTATION_E2CONTAINER_TYPE = lc(E2Container.class) + TYPE;
     String ANNOTATION_E2IMMUTABLE_TYPE = lc(E2Immutable.class) + TYPE;
     String ANNOTATION_E1CONTAINER_TYPE = lc(E1Container.class) + TYPE;
@@ -48,6 +51,7 @@ public interface Constants {
 
     // METHOD
 
+    String ERROR_METHOD = ERROR + METHOD;
     String ANNOTATION_INDEPENDENT_METHOD = lc(Independent.class) + METHOD; // implies @NotModified on methods, @Modified on constructors
     String ANNOTATION_DEPENDENT_METHOD = lc(Dependent.class) + METHOD; // implies @NotModified on methods, @Modified on constructors
     String ANNOTATION_NOT_MODIFIED_METHOD = lc(NotModified.class) + METHOD; // not for constructors
@@ -63,6 +67,7 @@ public interface Constants {
 
     // FIELD
 
+    String ERROR_FIELD = ERROR + FIELD;
     String ANNOTATION_VARIABLE_FIELD = lc(Variable.class) + FIELD;
     String ANNOTATION_MODIFIED_FIELD = lc(Modified.class) + FIELD; // implies @Final
     String ANNOTATION_NOT_MODIFIED_FIELD = lc(NotModified.class) + FIELD; // implies @Final
@@ -79,6 +84,7 @@ public interface Constants {
 
     // PARAMETER
 
+    String ERROR_PARAMETER = ERROR + PARAM;
     String ANNOTATION_MODIFIED_PARAM = lc(Modified.class) + PARAM;
     String ANNOTATION_NOT_MODIFIED_PARAM = lc(NotModified.class) + PARAM;
     String NOT_ANNOTATED_PARAM = NOT_ANNOTATED + PARAM;
@@ -89,6 +95,7 @@ public interface Constants {
 
     // TYPE
 
+    TextAttributesKey TAK_ERROR_TYPE = TextAttributesKey.createTextAttributesKey(E2I + ERROR_TYPE, TAK_DEFAULT);
     TextAttributesKey TAK_E2IMMUTABLE_TYPE = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_E2IMMUTABLE_TYPE,
             TAK_DEFAULT);
     TextAttributesKey TAK_E2CONTAINER_TYPE = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_E2CONTAINER_TYPE,
@@ -106,6 +113,7 @@ public interface Constants {
 
     // METHOD
 
+    TextAttributesKey TAK_ERROR_METHOD = TextAttributesKey.createTextAttributesKey(E2I + ERROR_METHOD, TAK_DEFAULT);
     TextAttributesKey TAK_NOT_MODIFIED_METHOD = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_NOT_MODIFIED_METHOD,
             TAK_DEFAULT);
     TextAttributesKey TAK_MODIFIED_METHOD = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_MODIFIED_METHOD,
@@ -130,6 +138,7 @@ public interface Constants {
 
     // FIELD
 
+    TextAttributesKey TAK_ERROR_FIELD = TextAttributesKey.createTextAttributesKey(E2I + ERROR_FIELD, TAK_DEFAULT);
     TextAttributesKey TAK_VARIABLE_FIELD = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_VARIABLE_FIELD,
             TAK_DEFAULT);
     TextAttributesKey TAK_NOT_MODIFIED_FIELD = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_NOT_MODIFIED_FIELD,
@@ -154,6 +163,7 @@ public interface Constants {
 
     // PARAMETER
 
+    TextAttributesKey TAK_ERROR_PARAM = TextAttributesKey.createTextAttributesKey(E2I + ERROR_PARAMETER, TAK_DEFAULT);
     TextAttributesKey TAK_NOT_MODIFIED_PARAM = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_NOT_MODIFIED_PARAM,
             TAK_DEFAULT);
     TextAttributesKey TAK_MODIFIED_PARAM = TextAttributesKey.createTextAttributesKey(E2I + ANNOTATION_MODIFIED_PARAM,
@@ -163,6 +173,7 @@ public interface Constants {
 
 
     Map<String, TextAttributesKey> TAK_MAP = new ImmutableMap.Builder<String, TextAttributesKey>()
+            .put(ERROR_TYPE, TAK_ERROR_TYPE)
             .put(ANNOTATION_CONTAINER_TYPE, TAK_CONTAINER_TYPE)
             .put(ANNOTATION_E2CONTAINER_TYPE, TAK_E2CONTAINER_TYPE)
             .put(ANNOTATION_E2IMMUTABLE_TYPE, TAK_E2IMMUTABLE_TYPE)
@@ -171,6 +182,7 @@ public interface Constants {
             .put(ANNOTATION_MUTABLE_MODIFIES_ARGUMENTS_TYPE, TAK_MUTABLE_MODIFIES_ARGUMENTS_TYPE)
             .put(NOT_ANNOTATED_TYPE, TAK_NOT_ANNOTATED_TYPE)
 
+            .put(ERROR_METHOD, TAK_ERROR_METHOD)
             .put(ANNOTATION_NOT_MODIFIED_METHOD, TAK_NOT_MODIFIED_METHOD)
             .put(ANNOTATION_MODIFIED_METHOD, TAK_MODIFIED_METHOD)
             .put(ANNOTATION_INDEPENDENT_METHOD, TAK_INDEPENDENT_METHOD)
@@ -182,6 +194,7 @@ public interface Constants {
             .put(ANNOTATION_E1IMMUTABLE_METHOD, TAK_E1IMMUTABLE_TYPE_OF_METHOD)
             .put(ANNOTATION_BEFORE_MARK_METHOD, TAK_BEFORE_MARK_TYPE_OF_METHOD)
 
+            .put(ERROR_FIELD, TAK_ERROR_FIELD)
             .put(ANNOTATION_NOT_MODIFIED_FIELD, TAK_NOT_MODIFIED_FIELD)
             .put(ANNOTATION_MODIFIED_FIELD, TAK_MODIFIED_FIELD)
             .put(ANNOTATION_FINAL_FIELD, TAK_FINAL_FIELD)
@@ -193,6 +206,7 @@ public interface Constants {
             .put(ANNOTATION_E1IMMUTABLE_FIELD, TAK_E1IMMUTABLE_TYPE_OF_FIELD)
             .put(ANNOTATION_BEFORE_MARK_FIELD, TAK_BEFORE_MARK_TYPE_OF_FIELD)
 
+            .put(ERROR_PARAMETER, TAK_ERROR_PARAM)
             .put(ANNOTATION_NOT_MODIFIED_PARAM, TAK_NOT_MODIFIED_PARAM)
             .put(ANNOTATION_MODIFIED_PARAM, TAK_MODIFIED_PARAM)
             .put(NOT_ANNOTATED_PARAM, TAK_NOT_ANNOTATED_PARAM)

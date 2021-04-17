@@ -15,34 +15,34 @@
 plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '0.4.21'
+    id 'maven-publish'
 }
 
 group 'org.e2immu'
-version '0.0.1'
+version '0.1.0'
 
-sourceCompatibility = 1.8
-//
-//repositories {
-//    mavenCentral()
-//    maven {
-//        name = "GitHubPackages"
-//        url = uri("https://maven.pkg.github.com/bnaudts/e2immu-annot")
-//        credentials {
-//            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-//            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-//        }
-//    }
-//}
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/e2immu/e2immu-support")
+    }
+}
 
 dependencies {
-    implementation project(':annotations')
+    implementation group: 'org.e2immu', name: 'e2immu-support', version: '0.1.0'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.2'
+    version '2021.1'
     plugins = ['java']
     pluginName = "e2immu"
 }
@@ -53,3 +53,23 @@ patchPluginXml {
       <em>most HTML tags may be used</em>"""
 }
 
+publishing {
+    repositories {
+        mavenLocal()
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/e2immu/e2immu-intellij-plugin")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            groupId = 'org.e2immu'
+            artifactId = 'e2immu-intellij-plugin'
+            from components.java
+        }
+    }
+}

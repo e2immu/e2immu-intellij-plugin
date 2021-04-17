@@ -5,15 +5,10 @@
  */
 package org.e2immu.intellij.highlighter.store;
 
-import org.e2immu.annotation.Container;
-
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 
-@Container
 public class LRUCache<K, V> {
     private final Map<K, Long> recency = new HashMap<>();
     private final TreeMap<Long, K> dates = new TreeMap<>();

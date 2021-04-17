@@ -41,12 +41,12 @@ public class Configurable implements SearchableConfigurable {
         noSupportedLanguage.setFont(font.deriveFont(
                 font.getStyle() == Font.PLAIN ? Font.BOLD : font.getStyle()
         ));
-        java.util.List<LinkLabel> list = com.intellij.openapi.options.Configurable.APPLICATION_CONFIGURABLE.getExtensionList().stream()
+        java.util.List<LinkLabel<?>> list = com.intellij.openapi.options.Configurable.APPLICATION_CONFIGURABLE.getExtensionList().stream()
                 .filter(cep -> cep.id != null && cep.id.startsWith("preferences." + Constants.APP_NAME + "."))
                 .map(cep -> {
-                    String language = cep.id.split(".")[2];
+                    String language = cep.id.split("\\.")[2];
                     String text = Bundle.INSTANCE.get("e2i.settings." + language);
-                    LinkLabel ll = LinkLabel.create(text, buildRunnable(cep));
+                    LinkLabel<?> ll = LinkLabel.create(text, buildRunnable(cep));
                     ll.setAlignmentX(0f);
                     ll.setBorder(JBUI.Borders.empty(1, 1, 3, 1));
                     return ll;

@@ -19,6 +19,7 @@ import com.intellij.openapi.fileTypes.PlainSyntaxHighlighter;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
+import com.intellij.openapi.options.colors.ColorSettingsPage;
 import org.e2immu.intellij.highlighter.Bundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +29,8 @@ import static org.e2immu.intellij.highlighter.Constants.*;
 import javax.swing.*;
 import java.util.Map;
 
-public class E2ImmuColorSettingsPage implements com.intellij.openapi.options.colors.ColorSettingsPage {
+// FIXME if we write the FQN after implements, the inspection system crashes
+public class E2ImmuColorSettingsPage implements ColorSettingsPage {
     @Nullable
     @Override
     public Icon getIcon() {

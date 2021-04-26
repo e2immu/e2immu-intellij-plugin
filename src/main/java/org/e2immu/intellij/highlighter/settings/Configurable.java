@@ -15,6 +15,7 @@
 package org.e2immu.intellij.highlighter.settings;
 
 import com.intellij.ide.DataManager;
+import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.options.ConfigurableEP;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
@@ -59,7 +60,9 @@ public class Configurable implements SearchableConfigurable {
     }
 
     private Runnable buildRunnable(ConfigurableEP<com.intellij.openapi.options.Configurable> configurableEP) {
-        Settings settings = Settings.KEY.getData(DataManager.getInstance().getDataContext(gui.getRootPanel()));
+        // FIXME resolver crashes if dataContext directly as parameter to getData
+        DataContext dataContext = DataManager.getInstance().getDataContext(gui.getRootPanel());
+        Settings settings = Settings.KEY.getData(dataContext);
         com.intellij.openapi.options.Configurable configurable = settings != null ? settings.find(configurableEP.id) : null;
         return settings != null ? () -> settings.select(configurable) : null; // should this be .dispose() ??
     }

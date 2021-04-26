@@ -14,6 +14,7 @@
 
 plugins {
     id 'java'
+    id 'org.e2immu.analyser'
 }
 
 java {
@@ -31,53 +32,43 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.e2immu', name: 'analyser-cli', version: '0.1.2'      // LGPL 3.0
-    implementation group: 'org.e2immu', name: 'e2immu-support', version: '0.1.2'    // LGPL 3.0
+    implementation group: 'org.e2immu', name: 'e2immu-support', version: '0.2.0'
+    implementation group: 'org.e2immu', name: 'analyser-cli', version: '0.2.0'      // LGPL 3.0
 
-    implementation group: 'io.vertx', name: 'vertx-web', version: '4.0.3'
-    implementation group: 'io.vertx', name: 'vertx-config', version: '4.0.3'
+    implementation group: 'org.jetbrains', name: 'annotations', version: '19.0.0'
+
+    // HELP! THIS IS NOT HOW I WANT TO DO THIS...
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/lib/platform-api.jar"))
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/lib/platform-impl.jar"))
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/lib/http-client.jar"))
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/plugins/java/lib/java-impl.jar"))
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/plugins/java/lib/java-api.jar"))
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/lib/util.jar"))
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/lib/guava.jar"))
+    implementation(files("/Applications/IntelliJ IDEA CE.app/Contents/lib/gson-2.8.6.jar"))
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 /*
- ./gradlew -b build-api.gradle runIoVertxInspected
+ ./gradlew -b build-api.gradle runAAPIUsage
  */
-task runIoVertxInspected(type: JavaExec) {
+task runAAPIUsage(type: JavaExec) {
     group = "Execution"
-    description = "Prepare an AnnotatedAPI file for io.vertx.core, based on inspection"
+    description = "Prepare an AnnotatedAPI file for com.intellij,org.jetbrains etc."
 
     classpath = sourceSets.main.runtimeClasspath
     main = 'org.e2immu.analyser.cli.Main'
 
-    Set<File> reducedClassPath = sourceSets.main.runtimeClasspath.toList()
-    reducedClassPath += sourceSets.test.runtimeClasspath
-    reducedClassPath.removeIf({ f -> f.path.contains("build/classes") || f.path.contains("build/resources") })
+    Set<File> theClassPath = new ArrayList<File>(sourceSets.main.runtimeClasspath.toList())
+  //  reducedClassPath += sourceSets.test.runtimeClasspath
+    theClassPath.removeIf({ f -> f.path.contains("build/classes") || f.path.contains("build/resources") })
 
-    args('--classpath=' + reducedClassPath.join(":") + ":jmods/java.base.jmod:jmods/java.logging.jmod",
-            '--write-annotated-api=INSPECTED',
-            "--write-annotated-api-packages=io.vertx.core",
-            "--source=none",
-            "-d=CONFIGURATION,BYTECODE_INSPECTOR")
-}
-
-/*
- ./gradlew -b build-api.gradle runIoVertxUsage
- */
-task runIoVertxUsage(type: JavaExec) {
-    group = "Execution"
-    description = "Prepare an AnnotatedAPI file for io.vertx.core"
-
-    classpath = sourceSets.main.runtimeClasspath
-    main = 'org.e2immu.analyser.cli.Main'
-
-    Set<File> reducedClassPath = sourceSets.main.runtimeClasspath.toList()
-    reducedClassPath += sourceSets.test.runtimeClasspath
-    reducedClassPath.removeIf({ f -> f.path.contains("build/classes") || f.path.contains("build/resources") })
-
-    args('--classpath=' + reducedClassPath.join(":") + ":jmods/java.base.jmod:jmods/java.logging.jmod",
+    args('--classpath=' + theClassPath.join(":") + ":jmods/java.base.jmod:jmods/java.desktop.jmod:jmods/java.datatransfer.jmod",
             '--write-annotated-api=USAGE',
-            '--write-annotated-api-destination-package=org.e2immu.kvstoreaapi',
-            "--write-annotated-api-packages=io.vertx.,java.util.logging,java.time.",
+            '--write-annotated-api-destination-package=org.e2immu.intellij.highlighteraapi',
+            "--write-annotated-api-packages=com.intellij.,org.jetbrains.",
             "--source=src/main/java",
-            "--source-packages=org.e2immu.kvstore",
-            "-d=CONFIGURATION,BYTECODE_INSPECTOR,ANNOTATED_API_WRITER")
+            "--source-packages=org.e2immu.intellij.highlighter.",
+            "-d=CONFIGURATION,BYTECODE_INSPECTOR,ANNOTATED_API_WRITER,ANALYSER,DELAYED")
 }

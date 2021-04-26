@@ -28,7 +28,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == 'org.e2immu') {
-                useModule('org.e2immu:gradle-plugin:0.1.2')
+                useModule('org.e2immu:gradle-plugin:0.2.0')
             }
         }
     }

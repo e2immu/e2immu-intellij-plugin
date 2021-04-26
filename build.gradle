@@ -19,14 +19,15 @@ plugins {
 }
 
 group 'org.e2immu'
-version '0.1.0'
+version '0.2.0'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_10
+    targetCompatibility = JavaVersion.VERSION_1_10
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven {
         name = "GitHubPackages"
@@ -35,7 +36,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.e2immu', name: 'e2immu-support', version: '0.1.0'
+    implementation group: 'org.e2immu', name: 'e2immu-support', version: '0.2.0'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
